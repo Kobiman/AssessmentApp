@@ -1,0 +1,89 @@
+﻿@page "/questions"
+<MudText Typo="Typo.h6">Questions</MudText>
+<MudButton Variant="Variant.Filled" Height="200px" Color="Color.Primary" @onclick="@(() => Modal.Show<AddQuestionPage>("Add Question"))">Add</MudButton>
+<div style="margin-top: 10px;">
+    <MudTable Items="@Elements" Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped" @bind-SelectedItem="selectedItem1">
+        <ToolBarContent>
+            <MudText Typo="Typo.h6">Questions</MudText>
+            <MudSpacer />
+            @*<MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>*@
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>Program</MudTh>
+            <MudTh>Subject</MudTh>
+            <MudTh>Class</MudTh>
+            <MudTh>Category</MudTh>
+            <MudTh>Question</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Program">@context.Program</MudTd>
+            <MudTd DataLabel="Subject">@context.Subject</MudTd>
+            <MudTd DataLabel="Class">@context.Class</MudTd>
+            <MudTd DataLabel="Category"></MudTd>
+            <MudTd DataLabel="Question">@context.Question</MudTd>
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager />
+        </PagerContent>
+    </MudTable>
+
+   @* <div class="d-flex flex-wrap mt-4">
+        <MudSwitch @bind-Checked="@hover" Color="Color.Primary">Hover</MudSwitch>
+        <MudSwitch @bind-Checked="@dense" Color="Color.Secondary">Dense</MudSwitch>
+        <MudSwitch @bind-Checked="@striped" Color="Color.Tertiary">Striped</MudSwitch>
+        <MudSwitch @bind-Checked="@bordered" Color="Color.Warning">Bordered</MudSwitch>
+        <MudSpacer />
+        <div style="min-width:200px;">
+            <MudText Inline="true" Class="align-self-center">Selected1: @selectedItem1?.Name</MudText>
+        </div>
+    </div>*@
+</div>
+@code {
+    private bool dense = false;
+    private bool hover = true;
+    private bool striped = false;
+    private bool bordered = false;
+    private string searchString1 = "";
+    private QuestionDto selectedItem1 = null;
+    private HashSet<QuestionDto> selectedItems = new HashSet<QuestionDto>();
+
+    private IEnumerable<QuestionDto> Elements = new List<QuestionDto>();
+
+    protected override void OnInitialized()
+    {
+        //Elements = await httpClient.GetFromJsonAsync<List<QuestionDto>>("webapi/periodictable");
+        Elements = new List<QuestionDto> { 
+           new QuestionDto
+           {
+             Id = "1", Class = "SHS 1", Program = "SCIENCE", Subject = "PHYSICS", Question = "What is the speed of light.",  
+           }, 
+           new QuestionDto
+           {
+             Id = "2", Class = "SHS 1", Program = "SCIENCE", Subject = "PHYSICS", Question = "What is Matter.",
+           },
+           new QuestionDto
+           {
+             Id = "3", Class = "SHS 1", Program = "SCIENCE", Subject = "PHYSICS", Question = "What is speed.",
+           },
+           new QuestionDto
+           {
+             Id = "4", Class = "SHS 1", Program = "SCIENCE", Subject = "PHYSICS", Question = "What is a transistor.",
+           },
+        };
+    }
+
+    private bool FilterFunc1(QuestionDto element) => FilterFunc(element, searchString1);
+
+    private bool FilterFunc(QuestionDto element, string searchString)
+    {
+        //if (string.IsNullOrWhiteSpace(searchString))
+        //    return true;
+        //if (element.Sign.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+        //    return true;
+        //if (element.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+        //    return true;
+        //if ($"{element.Number} {element.Position} {element.Molar}".Contains(searchString))
+        //    return true;
+        return false;
+    }
+}

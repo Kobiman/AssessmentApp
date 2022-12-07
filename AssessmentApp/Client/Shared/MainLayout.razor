@@ -2,6 +2,7 @@
 <MudThemeProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
+<CascadingBlazoredModal />
 
 <MudLayout>
     <MudAppBar>
@@ -12,7 +13,9 @@
         <MainMenu/>
     </MudDrawer>
     <MudMainContent>
+        <div style="margin:8px">
         @Body
+        </div>
     </MudMainContent>
 </MudLayout>
 @code {

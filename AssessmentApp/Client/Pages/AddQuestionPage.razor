@@ -1,11 +1,94 @@
-﻿<h3>AddQuestionPage</h3>
+﻿@page "/addQuestion"
+<div>
+    <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
+                    <MudCardContent>
+            <MudSelect T="string" Label="Select Program" @bind-Value="model.Program" AnchorOrigin="Origin.BottomCenter" Variant="Variant.Outlined"
+                       RequiredError="Program is required!" For="@(() => model.Program)">
+                @foreach (var p in programs)
+                {
+                    <MudSelectItem T="string" Value="@p.ProgramId">@p.Name</MudSelectItem>
+                }
+            </MudSelect>
+            <MudTextField T="string" Label="Subject" Required="true" @bind-Value="model.Subject"
+                          RequiredError="Subject is required!" For="@(() => model.Subject)" />
+            <MudTextField Label="Class" Required="true" @bind-Value="model.Class"
+                          RequiredError="Class is required!" For="@(() => model.Class)" />
+
+            <BlazoredTextEditor @ref="@QuillHtml">
+                <ToolbarContent>
+                    <select class="ql-header">
+                        <option selected=""></option>
+                        <option value="1"></option>
+                        <option value="2"></option>
+                        <option value="3"></option>
+                        <option value="4"></option>
+                        <option value="5"></option>
+                    </select>
+                    <span class="ql-formats">
+                        <button class="ql-bold"></button>
+                        <button class="ql-italic"></button>
+                        <button class="ql-underline"></button>
+                        <button class="ql-strike"></button>
+                    </span>
+                    <span class="ql-formats">
+                        <select class="ql-color"></select>
+                        <select class="ql-background"></select>
+                    </span>
+                    <span class="ql-formats">
+                        <button class="ql-list" value="ordered"></button>
+                        <button class="ql-list" value="bullet"></button>
+                    </span>
+                    <span class="ql-formats">
+                        <button class="ql-link"></button>
+                    </span>
+                </ToolbarContent>
+                <EditorContent>
+                    
+                </EditorContent>
+            </BlazoredTextEditor>
+            <br />
+            
+            <br />
+            <div>
+                <br />
+                @((MarkupString)QuillHTMLContent)
+                @QuillHTMLContent
+            </div>
+            <br />
+                       
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Save</MudButton>
+            </MudCardActions>
+    </EditForm>
+    @*<EditForm @bind-IsValid="@success" @bind-Errors="@errors" Model="@model" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
+        <MudSelect T="string" Label="Select Program" @bind-Value="model.Program" AnchorOrigin="Origin.BottomCenter" Variant="Variant.Outlined"
+                   RequiredError="Program is required!" For="@(() => model.Program)">
+            @foreach (var p in programs)
+            {
+                <MudSelectItem T="string" Value="@p.ProgramId">@p.Name</MudSelectItem>
+            }
+        </MudSelect>
+        <MudTextField T="string" Label="Subject" Required="true" @bind-Value="model.Subject"
+                      RequiredError="Subject is required!" For="@(() => model.Subject)" />
+        <MudTextField Label="Class" Required="true" @bind-Value="model.Class"
+                         RequiredError="Class is required!" For="@(() => model.Class)" />
+        <div style="margin-top:15px" class="mud-card-actions">
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" ButtonType="ButtonType.Submit">Save</MudButton>
+        </div>
+    </EditForm>*@
+</div>
 
 @code {
     [CascadingParameter] BlazoredModalInstance ModalInstance { get; set; }
     //private IEnumerable<QuestionDto> accounts { get; set; } = new List<QuestionDto>();
+    private IEnumerable<ProgramDto> programs { get; set; } = new List<ProgramDto> ();
     bool success;
     QuestionDto model = new QuestionDto();
     string[] errors = { };
+    public string TextValue { get; set; }
 
     private async void OnValidSubmit(EditContext context)
     {
@@ -27,6 +110,27 @@
 
     protected override async Task OnInitializedAsync()
     {
+        programs = new List<ProgramDto> {
+        new ProgramDto { ProgramId = "dd", Name = "General Science" },
+        new ProgramDto { ProgramId = "dsf", Name = "Agriculture" } };
+    }
 
+    BlazoredTextEditor QuillHtml;
+    string QuillHTMLContent;
+
+    public async void GetHTML()
+    {
+        QuillHTMLContent = await this.QuillHtml.GetHTML();
+        StateHasChanged();
+    }
+
+    public async void SetHTML()
+    {
+        string QuillContent =
+            @"<a href='http://BlazorHelpWebsite.com/'>" +
+            "<img src='images/BlazorHelpWebsite.gif' /></a>";
+
+        await this.QuillHtml.LoadHTMLContent(QuillContent);
+        StateHasChanged();
     }
 }

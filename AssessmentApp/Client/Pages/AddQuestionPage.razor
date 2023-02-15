@@ -15,7 +15,7 @@
             <MudTextField Label="Class" Required="true" @bind-Value="model.Class"
                           RequiredError="Class is required!" For="@(() => model.Class)" />
 
-            <BlazoredTextEditor @ref="@QuillHtml">
+            <BlazoredTextEditor @ref="@QuillHtml" @bind-Value="model.Question">
                 <ToolbarContent>
                     <select class="ql-header">
                         <option selected=""></option>
@@ -93,7 +93,7 @@
     private async void OnValidSubmit(EditContext context)
     {
         //model.AccountType = accounts.FirstOrDefault(x => x.AccountId == model.AccountId).Type;
-        //var response = await Http.PostAsJsonAsync("api/Expense/AddExpense", context.Model);
+        var response = await Http.PostAsJsonAsync("api/Question/AddQuestion", context.Model);
         //var content = await response.Content.ReadFromJsonAsync<Result>();
         //if (content is not null && content.IsSucessful)
         //{

@@ -15,7 +15,7 @@
             <MudTextField Label="Class" Required="true" @bind-Value="model.Class"
                           RequiredError="Class is required!" For="@(() => model.Class)" />
 
-            <BlazoredTextEditor @ref="@QuillHtml" @bind-Value="model.Question">
+            <BlazoredTextEditor @ref="@QuillHtml">
                 <ToolbarContent>
                     <select class="ql-header">
                         <option selected=""></option>

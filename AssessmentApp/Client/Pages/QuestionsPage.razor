@@ -6,7 +6,6 @@
         <ToolBarContent>
             <MudText Typo="Typo.h6">Questions</MudText>
             <MudSpacer />
-            @*<MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>*@
         </ToolBarContent>
         <HeaderContent>
             <MudTh>Program</MudTh>
@@ -19,7 +18,7 @@
             <MudTd DataLabel="Program">@context.Program</MudTd>
             <MudTd DataLabel="Subject">@context.Subject</MudTd>
             <MudTd DataLabel="Class">@context.Class</MudTd>
-            <MudTd DataLabel="Category"></MudTd>
+            <MudTd DataLabel="Category">@context.Category</MudTd>
             <MudTd DataLabel="Question">@context.Question</MudTd>
         </RowTemplate>
         <PagerContent>
@@ -27,16 +26,6 @@
         </PagerContent>
     </MudTable>
 
-   @* <div class="d-flex flex-wrap mt-4">
-        <MudSwitch @bind-Checked="@hover" Color="Color.Primary">Hover</MudSwitch>
-        <MudSwitch @bind-Checked="@dense" Color="Color.Secondary">Dense</MudSwitch>
-        <MudSwitch @bind-Checked="@striped" Color="Color.Tertiary">Striped</MudSwitch>
-        <MudSwitch @bind-Checked="@bordered" Color="Color.Warning">Bordered</MudSwitch>
-        <MudSpacer />
-        <div style="min-width:200px;">
-            <MudText Inline="true" Class="align-self-center">Selected1: @selectedItem1?.Name</MudText>
-        </div>
-    </div>*@
 </div>
 @code {
     private bool dense = false;
@@ -49,27 +38,18 @@
 
     private IEnumerable<QuestionDto> Elements = new List<QuestionDto>();
 
-    protected override void OnInitialized()
+    protected async override void OnInitialized()
     {
-        //Elements = await httpClient.GetFromJsonAsync<List<QuestionDto>>("webapi/periodictable");
-        Elements = new List<QuestionDto> { 
-           new QuestionDto
-           {
-             Id = "1", Class = "SHS 1", Program = "SCIENCE", Subject = "PHYSICS", Question = "What is the speed of light.",  
-           }, 
-           new QuestionDto
-           {
-             Id = "2", Class = "SHS 1", Program = "SCIENCE", Subject = "PHYSICS", Question = "What is Matter.",
-           },
-           new QuestionDto
-           {
-             Id = "3", Class = "SHS 1", Program = "SCIENCE", Subject = "PHYSICS", Question = "What is speed.",
-           },
-           new QuestionDto
-           {
-             Id = "4", Class = "SHS 1", Program = "SCIENCE", Subject = "PHYSICS", Question = "What is a transistor.",
-           },
-        };
+        var result = await Http.GetFromJsonAsync<List<QuestionDto>>("api/Question/GetQuestions");
+        if (result is not null)
+        {
+            Elements = result;
+        }
+        else
+        {
+            Elements = new List<QuestionDto>();
+        }
+        await InvokeAsync(StateHasChanged);
     }
 
     private bool FilterFunc1(QuestionDto element) => FilterFunc(element, searchString1);

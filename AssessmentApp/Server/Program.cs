@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-builder.Services.AddTransient<IQuestionService,QuestionService>();
+builder.Services.AddSingleton<IQuestionService,QuestionService>();
 
 var app = builder.Build();
 

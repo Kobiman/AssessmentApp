@@ -11,6 +11,7 @@ namespace AssessmentApp.Shared.Models
         public string AssessmentQuestionId { get; set; } = Guid.NewGuid().ToString();
         public string Subject { get; set; }
         public string Program { get; set; }
+        public string Category { get; set; }
         public string Question { get; set; }
         public string Class { get; set; }
     }

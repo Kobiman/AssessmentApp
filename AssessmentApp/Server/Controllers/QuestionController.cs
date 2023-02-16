@@ -22,5 +22,12 @@ namespace AssessmentApp.Server.Controllers
             _questionService.AddQuestion(questionDto);
             return Ok();
         }
+
+        [HttpGet]
+        [Route("GetQuestions")]
+        public IActionResult GetQuestions()
+        {
+            return Ok(_questionService.GetAllQuestions());
+        }
     }
 }

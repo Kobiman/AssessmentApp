@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssessmentApp.Server", "AssessmentApp\Server\AssessmentApp.Server.csproj", "{873874EE-CD4E-4B7C-BC1F-56890A4C1956}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssessmentApp.Server", "AssessmentApp\Server\AssessmentApp.Server.csproj", "{873874EE-CD4E-4B7C-BC1F-56890A4C1956}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssessmentApp.Client", "AssessmentApp\Client\AssessmentApp.Client.csproj", "{DCE21FB8-5F4E-4F78-A6C6-0E52045E4044}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssessmentApp.Client", "AssessmentApp\Client\AssessmentApp.Client.csproj", "{DCE21FB8-5F4E-4F78-A6C6-0E52045E4044}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssessmentApp.Shared", "AssessmentApp\Shared\AssessmentApp.Shared.csproj", "{C5DEF2CE-147E-43ED-913B-AC966659C648}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssessmentApp.Shared", "AssessmentApp\Shared\AssessmentApp.Shared.csproj", "{C5DEF2CE-147E-43ED-913B-AC966659C648}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

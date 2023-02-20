@@ -1,0 +1,18 @@
+﻿@foreach (var Question in Questions)
+{
+        <MudCard>
+            <MudCardContent>
+                    </MudCardContent>
+                    <MudCardActions>
+                <MudTextField T="string" Label="Any Other Comments?" Variant="Variant.Outlined" Text="" Lines="5" />
+                @code
+                {
+                }
+                    </MudCardActions>
+                </MudCard>
+        <br />
+}
+@code {
+    [Parameter]
+    public IEnumerable<QuestionDto>? Questions { get; set; }
+}

@@ -1,0 +1,22 @@
+﻿@foreach (var Question in Questions)
+{
+    <MudCard>
+        <MudCardContent>
+            <MudText>Q1</MudText>
+            <MudElement> @((MarkupString)Question.Question)</MudElement>
+            </MudCardContent>
+            <MudCardActions>
+                <MudRadioGroup T="int" Style="margin-left:1vw">
+                    <MudRadio Option="1" Color="Color.Default" UnCheckedColor="Color.Default">1</MudRadio>
+                    <MudRadio Option="2" Color="Color.Default" UnCheckedColor="Color.Default">2</MudRadio>
+                    <MudRadio Option="3" Color="Color.Default" UnCheckedColor="Color.Default">3</MudRadio>
+                    <MudRadio Option="4" Color="Color.Default" UnCheckedColor="Color.Default">4</MudRadio>
+                </MudRadioGroup>
+            </MudCardActions>
+        </MudCard>
+    <br />
+}
+@code {
+    [Parameter]
+    public IEnumerable<QuestionDto>? Questions { get; set; }
+}

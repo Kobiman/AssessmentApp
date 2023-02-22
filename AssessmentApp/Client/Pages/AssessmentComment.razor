@@ -4,15 +4,13 @@
             <MudCardContent>
                     </MudCardContent>
                     <MudCardActions>
-                <MudTextField T="string" Label="Any Other Comments?" Variant="Variant.Outlined" Text="" Lines="5" />
-                @code
-                {
-                }
-                    </MudCardActions>
+            <MudTextField @ref="multilineReference" T="string" Label="Any Other Comments?" Variant="Variant.Outlined" Text="" Lines="5" />
+            </MudCardActions>
                 </MudCard>
         <br />
 }
 @code {
     [Parameter]
     public IEnumerable<QuestionDto>? Questions { get; set; }
+    private MudTextField<string> multilineReference;
 }
